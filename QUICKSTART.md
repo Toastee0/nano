@@ -11,8 +11,12 @@ If available, download the pre-built binary from the [Releases](https://github.c
 wget https://github.com/Toastee0/nano/releases/latest/download/nano-recamera-riscv64
 chmod +x nano-recamera-riscv64
 
-# Copy to your reCamera
+# Copy to your reCamera (user installation)
 scp nano-recamera-riscv64 recamera@192.168.42.1:~/bin/nano
+
+# OR for system-wide installation (accessible to all users)
+scp nano-recamera-riscv64 recamera@192.168.42.1:~/nano
+ssh recamera@192.168.42.1 "sudo mv ~/nano /usr/bin/nano"
 
 # SSH to reCamera and test
 ssh recamera@192.168.42.1

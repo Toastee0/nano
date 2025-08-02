@@ -14,8 +14,12 @@ A cross-compiled version of GNU nano 6.4 text editor specifically built for [reC
 wget https://github.com/Toastee0/nano/releases/download/v6.4/nano-recamera-v6.4.tar.gz
 tar -xzf nano-recamera-v6.4.tar.gz
 
-# Copy to your reCamera device
+# Copy to your reCamera device (user installation)
 scp nano-recamera-v6.4 recamera@192.168.42.1:~/bin/nano
+
+# OR for system-wide installation (accessible to all users)
+scp nano-recamera-v6.4 recamera@192.168.42.1:~/nano
+ssh recamera@192.168.42.1 "sudo mv ~/nano /usr/bin/nano"
 ```
 
 ### Option 2: Build from Source

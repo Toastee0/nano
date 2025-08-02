@@ -116,8 +116,13 @@ The build script automatically deploys and installs nano to `~/bin/nano`.
 
 ### Manual Installation
 ```bash
-# Copy binary to device
+# Copy binary to device (user installation)
 scp src/nano recamera@192.168.42.1:~/bin/
+
+# OR for system-wide installation (accessible to all users)
+scp src/nano recamera@192.168.42.1:~/nano
+ssh recamera@192.168.42.1 "sudo mv ~/nano /usr/bin/nano"
+```
 
 ## Usage
 
