@@ -4,7 +4,7 @@ A cross-compiled version of GNU nano 6.4 text editor specifically built for [reC
 
 ## 📋 About reCamera
 
-**reCamera** is an AI-powered camera device developed by Seeed Studio. For comprehensive information, documentation, and setup guides, visit the **[Seeed Studio reCamera Wiki](https://wiki.seeedstudio.com/recamera_intro/)**.
+**reCamera** is an AI-powered camera device developed by Seeed Studio. For comprehensive information, documentation, and setup guides, visit the **[Seeed Studio reCamera Getting Started Guide](https://wiki.seeedstudio.com/recamera_getting_started/)**.
 
 ## 🚀 Quick Install
 
@@ -37,7 +37,7 @@ cd nano
 
 - **Build Instructions**: See [README-RECAMERA.md](README-RECAMERA.md)
 - **Quick Start**: See [QUICKSTART.md](QUICKSTART.md)
-- **reCamera Wiki**: https://wiki.seeedstudio.com/recamera_intro/
+- **reCamera Getting Started**: https://wiki.seeedstudio.com/recamera_getting_started/
 
 ## 📜 License
 

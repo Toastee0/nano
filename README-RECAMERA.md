@@ -8,7 +8,7 @@ This repository contains a pre-configured build system for cross-compiling GNU n
 
 ## reCamera Information
 
-For detailed information about reCamera devices, setup guides, and documentation, visit the **[Seeed Studio reCamera Wiki](https://wiki.seeedstudio.com/recamera_intro/)**.
+For detailed information about reCamera devices, setup guides, and documentation, visit the **[Seeed Studio reCamera Getting Started Guide](https://wiki.seeedstudio.com/recamera_getting_started/)**.
 
 ## Features
 
