@@ -115,13 +115,19 @@ The build script automatically deploys and installs nano to `~/bin/nano`.
 # Copy binary to device
 scp src/nano recamera@192.168.42.1:~/bin/
 
-# SSH to device and make executable
-ssh recamera@192.168.42.1
-chmod +x ~/bin/nano
+## Usage
 
-# Add to PATH (optional)
-echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
-source ~/.bashrc
+On your reCamera device:
+```bash
+# Option 1: If installed in ~/bin and added to PATH
+nano filename.txt
+
+# Option 2: If installed system-wide
+nano filename.txt
+
+# Option 3: Use full path if not in PATH
+~/bin/nano filename.txt
+```
 ```
 
 ## Usage
@@ -160,7 +166,7 @@ ssh recamera@192.168.42.1 '~/bin/nano --version'
 - **Permission denied**: Check that target user has write access to destination directory
 
 ### Runtime Issues
-- **nano not found**: Add `~/bin` to PATH or use full path
+- **nano not found**: Add `~/bin` to PATH, use full path, or install system-wide with `sudo mv ~/bin/nano /usr/bin/nano`
 - **Segmentation fault**: Verify binary was built for correct architecture
 
 ## Dependencies

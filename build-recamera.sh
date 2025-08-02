@@ -207,9 +207,25 @@ deploy_nano() {
     if ssh_exec "~/bin/nano --version" >/dev/null 2>&1; then
         success "Nano deployed successfully!"
         ssh_exec "~/bin/nano --version"
-        log "To use nano: ssh $TARGET_USER@$TARGET_HOST"
-        log "Then run: ~/bin/nano filename.txt"
-        log "Or add ~/bin to PATH: echo 'export PATH=\"\$HOME/bin:\$PATH\"' >> ~/.bashrc"
+        echo
+        log "Installation options:"
+        log "1. Use with full path: ~/bin/nano filename.txt"
+        log "2. Add to PATH: echo 'export PATH=\"\$HOME/bin:\$PATH\"' >> ~/.bashrc"
+        log "3. Install system-wide: sudo mv ~/bin/nano /usr/bin/nano"
+        echo
+        read -p "Install nano system-wide? [y/N]: " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            log "Installing nano system-wide..."
+            if ssh_exec "sudo mv ~/bin/nano /usr/bin/nano"; then
+                success "Nano installed system-wide at /usr/bin/nano"
+                ssh_exec "nano --version"
+            else
+                warn "System-wide installation failed. Nano remains at ~/bin/nano"
+            fi
+        else
+            log "Nano remains at ~/bin/nano"
+        fi
     else
         error "Nano deployment verification failed"
     fi

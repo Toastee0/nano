@@ -65,12 +65,16 @@ TARGET_HOST=192.168.42.1 TARGET_PASSWORD=Watson64! ./build-recamera.sh
 # SSH to your device
 ssh recamera@192.168.42.1
 
-# Use nano (if in ~/bin)
+# Option 1: Use with full path
 ~/bin/nano myfile.txt
 
-# Or add to PATH for easier access
+# Option 2: Add ~/bin to PATH for easier access
 echo 'export PATH="$HOME/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
+nano myfile.txt
+
+# Option 3: Install system-wide (requires sudo)
+sudo mv ~/bin/nano /usr/bin/nano
 nano myfile.txt
 ```
 
@@ -88,11 +92,14 @@ nano myfile.txt
 
 ### nano: command not found
 ```bash
-# Use full path
+# Option 1: Use full path
 ~/bin/nano myfile.txt
 
-# Or add to PATH
+# Option 2: Add to PATH
 export PATH="$HOME/bin:$PATH"
+
+# Option 3: Install system-wide
+sudo mv ~/bin/nano /usr/bin/nano
 ```
 
 ### Permission denied
