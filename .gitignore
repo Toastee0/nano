@@ -1,0 +1,57 @@
+# Build artifacts
+*.o
+*.a
+*.so
+*.so.*
+*.la
+*.lo
+.libs/
+.deps/
+
+# Autotools generated files
+Makefile
+Makefile.in
+config.log
+config.status
+config.cache
+autom4te.cache/
+aclocal.m4
+configure
+stamp-h1
+config.h
+config.h.in
+
+# Build directories
+build/
+.build/
+
+# Compiled binaries
+src/nano
+nano
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Personal configuration
+build.sh
+*-personal.sh
+
+# Backup files
+*.bak
+*.orig
+*.rej
+
+# Log files
+*.log
+
+# Temporary files
+*.tmp
+*.temp

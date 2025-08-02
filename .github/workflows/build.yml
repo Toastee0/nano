@@ -1,0 +1,85 @@
+name: Build Nano for reCamera
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  release:
+    types: [ published ]
+
+jobs:
+  build-riscv:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential cmake autotools-dev pkg-config
+    
+    - name: Setup RISC-V toolchain
+      run: |
+        mkdir -p $HOME/recamera/host-tools/gcc
+        cd $HOME/recamera/host-tools/gcc
+        wget -O riscv64-linux-musl-toolchain.tar.bz2 \
+          "https://toolchains.bootlin.com/downloads/releases/toolchains/riscv64-linux-musl/tarballs/riscv64-linux-musl--musl--stable-2023.05-1.tar.bz2"
+        tar -xf riscv64-linux-musl-toolchain.tar.bz2
+        mv riscv64-linux-musl--musl--stable-2023.05-1 riscv64-linux-musl-x86_64
+    
+    - name: Setup ncurses dependency
+      run: |
+        cd $HOME/recamera
+        git clone https://github.com/Toastee0/ncurses.git ncurses-src
+        cd ncurses-src
+        # Build ncurses for RISC-V
+        export PATH="$HOME/recamera/host-tools/gcc/riscv64-linux-musl-x86_64/bin:$PATH"
+        ./configure \
+          --host=riscv64-unknown-linux-musl \
+          --prefix=$HOME/recamera/ncurses-6.4 \
+          --enable-widec \
+          --disable-shared \
+          --enable-static \
+          --without-ada \
+          --without-cxx \
+          --without-cxx-binding \
+          --without-manpages \
+          --without-progs \
+          --without-tests \
+          --disable-db-install \
+          --without-develop
+        make -j$(nproc)
+        make install
+    
+    - name: Build nano
+      run: |
+        export PATH="$HOME/recamera/host-tools/gcc/riscv64-linux-musl-x86_64/bin:$PATH"
+        chmod +x build-recamera.sh
+        ./build-recamera.sh
+    
+    - name: Verify build
+      run: |
+        file src/nano
+        ls -lh src/nano
+        # Verify it's RISC-V
+        file src/nano | grep -q "UCB RISC-V" || exit 1
+    
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: nano-recamera-riscv64
+        path: src/nano
+        retention-days: 30
+    
+    - name: Upload to release
+      if: github.event_name == 'release'
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: src/nano
+        asset_name: nano-recamera-riscv64
+        asset_content_type: application/octet-stream
