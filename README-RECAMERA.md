@@ -6,6 +6,15 @@ A cross-compiled version of the GNU nano text editor specifically built for reCa
 
 This repository contains a pre-configured build system for cross-compiling GNU nano 6.4 for reCamera devices. The build creates a statically-linked binary that requires no additional dependencies on the target device.
 
+### Build Dependencies
+
+Nano requires the **ncurses library** for terminal interface functionality. Before building nano, you must:
+
+1. **Build ncurses for RISC-V** using our companion repository: [https://github.com/Toastee0/ncurses](https://github.com/Toastee0/ncurses)
+2. **Then build nano** using the build scripts in this repository
+
+This dependency chain ensures nano has proper terminal support on the reCamera platform.
+
 ## reCamera Information
 
 For detailed information about reCamera devices, setup guides, and documentation, visit the **[Seeed Studio reCamera Getting Started Guide](https://wiki.seeedstudio.com/recamera_getting_started/)**.
@@ -33,9 +42,25 @@ For detailed information about reCamera devices, setup guides, and documentation
    wget https://toolchains.bootlin.com/downloads/releases/toolchains/riscv64-linux-musl/tarballs/riscv64-linux-musl--musl--stable-2023.05-1.tar.bz2
    ```
 
-2. **ncurses Library (Cross-compiled)**
-   - Clone and build from: https://github.com/Toastee0/ncurses
-   - Must be built for RISC-V and installed to `../ncurses-6.4/`
+2. **ncurses Library (Cross-compiled for RISC-V)**
+   
+   **Why ncurses is required**: Nano is a terminal-based text editor that requires the ncurses library for:
+   - Terminal screen management and cursor control
+   - Keyboard input handling and key mapping
+   - Text-based user interface rendering
+   - Cross-platform terminal compatibility
+   
+   Without ncurses, nano cannot display its interface or respond to user input properly.
+   
+   **Setup ncurses**:
+   ```bash
+   cd ~/recamera
+   git clone https://github.com/Toastee0/ncurses.git
+   cd ncurses
+   ./build-ncurses.sh
+   ```
+   
+   This will cross-compile ncurses for RISC-V and install it to the toolchain sysroot. The nano build script will automatically find and link against this cross-compiled ncurses library.
 
 ### Directory Structure
 ```
@@ -43,7 +68,7 @@ For detailed information about reCamera devices, setup guides, and documentation
 ├── host-tools/
 │   └── gcc/
 │       └── riscv64-linux-musl-x86_64/
-├── ncurses-6.4/          # Cross-compiled ncurses
+├── ncurses/              # Cross-compiled ncurses from our fork
 └── nano-6.4/             # This repository
 ```
 
@@ -223,8 +248,13 @@ This project maintains the original GNU nano license (GPL v3). See `COPYING` for
 
 ## Related Projects
 
-- [ncurses for reCamera](https://github.com/Toastee0/ncurses) - Cross-compiled ncurses dependency
-- [reCamera SDK](https://github.com/SeeedStudio/sscma-example-sg200x) - Official reCamera development tools
+- **[ncurses for reCamera](https://github.com/Toastee0/ncurses)** - Cross-compiled ncurses dependency
+  - **Required for building nano**: This ncurses fork includes RISC-V cross-compilation scripts
+  - **Must be built first**: The nano build script depends on finding ncurses in the toolchain sysroot
+  - **Why it's separate**: ncurses is a fundamental library used by many terminal applications beyond nano
+  
+- **[reCamera SDK](https://github.com/SeeedStudio/sscma-example-sg200x)** - Official reCamera development tools
+- **[Seeed Studio reCamera](https://wiki.seeedstudio.com/recamera_getting_started/)** - Hardware documentation and setup guides
 
 ---
 
