@@ -60,5 +60,5 @@ build.sh
 *.tmp
 *.temp
 
-# Release artifacts
-release/
+# Release artifacts (keep final release binaries for public distribution)
+# release/ - commented out to allow sharing pre-built binaries

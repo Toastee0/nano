@@ -6,6 +6,10 @@ A cross-compiled version of the GNU nano text editor specifically built for reCa
 
 This repository contains a pre-configured build system for cross-compiling GNU nano 6.4 for reCamera devices. The build creates a statically-linked binary that requires no additional dependencies on the target device.
 
+## reCamera Information
+
+For detailed information about reCamera devices, setup guides, and documentation, visit the **[Seeed Studio reCamera Wiki](https://wiki.seeedstudio.com/recamera_intro/)**.
+
 ## Features
 
 - **Architecture**: RISC-V 64-bit (riscv64-unknown-linux-musl)
